@@ -967,53 +967,60 @@ ul, ol { list-style: none; }
 }
 
 
-/* ===== Ботанический фон-декор: листья на тёмных и белых секциях ===== */
+/* ===== Ботанический фон-декор: листья (ближе к центру, видны на телефоне) ===== */
 .hero, .section { position: relative; overflow: hidden; }
 .hero > .container, .section > .container { position: relative; z-index: 1; }
 .hero__geometry { z-index: 0; }
 
-/* HERO — листья по углам + мягкий зелёный свет */
+/* HERO — крупные листья ближе к контенту */
 .hero::before {
   content: ''; position: absolute; z-index: 0; pointer-events: none;
-  top: -46px; right: -56px; width: min(40vw, 400px); height: min(46vw, 460px);
+  top: 4px; right: 1vw; width: min(40vw, 380px); height: min(44vw, 420px);
   background: url('assets/leaf.svg') no-repeat center / contain;
-  opacity: 0.5; transform: rotate(16deg);
+  opacity: 0.62; transform: rotate(16deg);
 }
 .hero::after {
   content: ''; position: absolute; z-index: 0; pointer-events: none;
-  bottom: -70px; left: -76px; width: min(34vw, 340px); height: min(40vw, 400px);
+  bottom: 4px; left: 1vw; width: min(34vw, 330px); height: min(38vw, 380px);
   background: url('assets/leaf.svg') no-repeat center / contain;
-  opacity: 0.34; transform: rotate(196deg);
+  opacity: 0.42; transform: rotate(196deg);
 }
 
-/* ТЁМНЫЕ секции — лист-акцент + рассеянный зелёный свет */
+/* ТЁМНЫЕ секции — лист-акцент ближе к краю контента + свет */
 .section--dark::before {
   content: ''; position: absolute; z-index: 0; pointer-events: none;
-  top: -44px; right: -52px; width: min(24vw, 240px); height: min(28vw, 290px);
+  top: 6px; right: 1.5vw; width: min(26vw, 250px); height: min(30vw, 290px);
   background: url('assets/leaf.svg') no-repeat center / contain;
-  opacity: 0.15; transform: rotate(26deg);
+  opacity: 0.22; transform: rotate(26deg);
 }
 .section--dark:nth-of-type(even)::before {
-  top: auto; bottom: -50px; right: auto; left: -58px; transform: rotate(-152deg); opacity: 0.14;
+  top: auto; bottom: 6px; right: auto; left: 1.5vw; transform: rotate(-152deg); opacity: 0.2;
 }
 .section--dark::after {
   content: ''; position: absolute; z-index: 0; pointer-events: none;
-  top: -12%; right: -8%; width: min(50vw, 620px); height: min(50vw, 620px);
+  top: -12%; right: -6%; width: min(48vw, 600px); height: min(48vw, 600px);
   background: radial-gradient(circle at 50% 50%, rgba(46,158,110,0.12), transparent 62%);
 }
-.section--dark:nth-of-type(even)::after { right: auto; left: -10%; top: auto; bottom: -16%;
-  background: radial-gradient(circle at 50% 50%, rgba(44,160,160,0.10), transparent 62%); }
 
-/* БЕЛЫЕ секции — зелёные листья по углам (как на карточке) */
+/* БЕЛЫЕ секции — зелёные листья ближе к контенту */
 .section--light::before {
   content: ''; position: absolute; z-index: 0; pointer-events: none;
-  top: -34px; left: -50px; width: min(23vw, 230px); height: min(27vw, 270px);
+  top: 4px; left: 1.5vw; width: min(25vw, 240px); height: min(29vw, 280px);
   background: url('assets/leaf.svg') no-repeat center / contain;
-  opacity: 0.13; transform: rotate(-24deg);
+  opacity: 0.17; transform: rotate(-24deg);
 }
 .section--light::after {
   content: ''; position: absolute; z-index: 0; pointer-events: none;
-  bottom: -44px; right: -52px; width: min(28vw, 280px); height: min(32vw, 320px);
+  bottom: 4px; right: 1.5vw; width: min(27vw, 260px); height: min(31vw, 300px);
   background: url('assets/leaf.svg') no-repeat center / contain;
-  opacity: 0.11; transform: rotate(158deg);
+  opacity: 0.14; transform: rotate(158deg);
+}
+
+/* ===== ТЕЛЕФОН: листья крупнее и заметно в кадре ===== */
+@media (max-width: 700px) {
+  .hero::before { top: 2px; right: -4px; width: 46vw; height: 52vw; opacity: 0.5; }
+  .hero::after  { bottom: 2px; left: -6px; width: 42vw; height: 48vw; opacity: 0.38; }
+  .section--dark::before, .section--light::before { width: 38vw; height: 44vw; top: 4px; opacity: 0.2; }
+  .section--dark:nth-of-type(even)::before { width: 38vw; height: 44vw; bottom: 4px; }
+  .section--light::after { width: 40vw; height: 46vw; bottom: 4px; opacity: 0.15; }
 }
