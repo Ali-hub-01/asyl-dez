@@ -965,3 +965,34 @@ ul, ol { list-style: none; }
   .reveal { opacity: 1; transform: none; }
   .hero__scroll { display: none; }
 }
+
+/* ===== Фон-обогащение: гексагон-соты + зелёное свечение (мотив как на карточке) ===== */
+.hero, .section--dark { position: relative; }
+.hero::before,
+.section--dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2346C79E' fill-opacity='0.05'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5z'/%3E%3Cpath d='M0 24.94l6.99 4.03v8.05L0 41.05z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-size: 42px auto;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+}
+.hero::after,
+.section--dark::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  top: -14%;
+  right: -8%;
+  width: min(54vw, 660px);
+  height: min(54vw, 660px);
+  background: radial-gradient(circle at 50% 50%, rgba(46, 158, 110, 0.18), transparent 60%);
+}
+.section--dark:nth-of-type(even)::after { right: auto; left: -10%; top: auto; bottom: -18%;
+  background: radial-gradient(circle at 50% 50%, rgba(44, 160, 160, 0.14), transparent 62%); }
+.hero > .container, .section--dark > .container { position: relative; z-index: 1; }
+.hero__geometry { z-index: 0; }
