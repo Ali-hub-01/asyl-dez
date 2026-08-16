@@ -1243,3 +1243,34 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .marquee-track { animation: none; }
   #spores { display: none; }
 }
+
+/* ===== Обогащение фона секций: споры-точки + арка-дуга + мягкий свет ===== */
+.section { overflow: hidden; }
+.section > .container, .section > * { position: relative; z-index: 1; }
+.section::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+/* светлые/мятные — зелёные точки-споры + свет */
+.section-light::before, .section-mint::before {
+  background-image:
+    radial-gradient(rgba(46,158,110,0.09) 1.1px, transparent 1.3px),
+    radial-gradient(circle at 88% -6%, rgba(46,158,110,0.09), transparent 55%);
+  background-size: 27px 27px, 100% 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 13%, #000 87%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 13%, #000 87%, transparent);
+}
+/* тёмные — бирюзовые точки + свет */
+.section-dark::before {
+  background-image:
+    radial-gradient(rgba(127,216,181,0.07) 1.1px, transparent 1.3px),
+    radial-gradient(circle at 14% 106%, rgba(44,160,160,0.14), transparent 55%);
+  background-size: 27px 27px, 100% 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 13%, #000 87%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 13%, #000 87%, transparent);
+}
+/* тонкая дуга-арка (мотив купола) в светлых секциях */
+.section-light::after, .section-mint::after {
+  content: ''; position: absolute; z-index: 0; pointer-events: none;
+  width: min(120vw, 1300px); aspect-ratio: 1; border-radius: 50%;
+  border: 1.5px solid rgba(46,158,110,0.10);
+  left: 50%; top: 24%; transform: translateX(-50%);
+}
+.section-light:nth-of-type(even)::after { border-color: rgba(44,160,160,0.10); top: auto; bottom: 22%; }
