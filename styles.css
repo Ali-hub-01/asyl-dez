@@ -1282,7 +1282,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   transition: opacity .5s ease, transform .55s cubic-bezier(.2,.9,.3,1.2), filter .45s ease;
 }
 .objects li.sprayed-in { opacity: 1; transform: none; filter: none; }
-.spray-canvas { position: absolute; left: 0; top: -14px; width: 100%; height: calc(100% + 28px); pointer-events: none; z-index: 5; }
+.spray-canvas { position: absolute; left: 50%; top: -34px; transform: translateX(-50%); width: 100vw; height: calc(100% + 68px); pointer-events: none; z-index: 5; filter: blur(8px); }
 @media (prefers-reduced-motion: reduce) {
   .objects li { opacity: 1; transform: none; filter: none; }
   .spray-canvas { display: none; }

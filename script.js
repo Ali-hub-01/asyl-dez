@@ -409,7 +409,7 @@
   }
 })();
 
-/* ---------- Спрей-проявление «Объекты» (canvas-аэрозоль) ---------- */
+/* ---------- Спрей-проявление «Объекты» (canvas-аэрозоль, во всю ширину, blur) ---------- */
 (function () {
   var wrap = document.querySelector('.objects');
   if (!wrap) return;
@@ -420,31 +420,29 @@
   var fired = false;
   function run() {
     if (fired) return; fired = true;
-    var W = wrap.clientWidth, H = wrap.clientHeight, pad = 14;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var cv = document.createElement('canvas'); cv.className = 'spray-canvas';
-    cv.width = W * dpr; cv.height = (H + 28) * dpr;
     wrap.appendChild(cv);
+    var crect = cv.getBoundingClientRect();
+    var CW = crect.width, CH = crect.height;           // во всю ширину экрана
+    cv.width = CW * dpr; cv.height = CH * dpr;
     var ctx = cv.getContext('2d'); ctx.scale(dpr, dpr);
-    var CW = W, CH = H + 28;
+    // центры плиток относительно canvas (надёжно, независимо от контейнера)
     var centers = tiles.map(function (t) {
-      return { el: t, cx: t.offsetLeft + t.offsetWidth / 2, done: false };
+      var r = t.getBoundingClientRect();
+      return { el: t, cx: r.left + r.width / 2 - crect.left, done: false };
     });
-    var COL = ['rgba(52,174,134,', 'rgba(46,158,110,', 'rgba(120,224,181,', 'rgba(44,160,160,', 'rgba(255,255,255,'];
-    var parts = [], start = null, DUR = 1750;
+    var COL = ['rgba(52,174,134,', 'rgba(46,158,110,', 'rgba(120,224,181,', 'rgba(44,160,160,', 'rgba(200,245,225,'];
+    var parts = [], start = null, DUR = 2000;
     function nozzle(p) {
-      return { x: -0.06 * CW + p * 1.14 * CW, y: CH * 0.30 + Math.sin(p * Math.PI) * CH * 0.34 };
+      return { x: -0.04 * CW + p * 1.08 * CW, y: CH * 0.34 + Math.sin(p * Math.PI) * CH * 0.30 };
     }
     function emit(nx, ny) {
-      for (var i = 0; i < 46; i++) {
-        var ang = Math.random() * 6.2832, rad = Math.random() * Math.random() * 66;
-        parts.push({ x: nx + Math.cos(ang) * rad + (Math.random()-.5)*8, y: ny + Math.sin(ang) * rad + (Math.random()-.5)*8,
-          vx: (Math.random()-.5)*0.6, vy: Math.random()*0.5+0.2, r: 0.6 + Math.random()*2.2,
-          a: 0.5 + Math.random()*0.4, life: 1, decay: 0.012 + Math.random()*0.02, c: COL[(Math.random()*COL.length)|0] });
-      }
-      for (var j = 0; j < 2; j++) {
-        parts.push({ x: nx+(Math.random()-.5)*30, y: ny+(Math.random()-.5)*24, vx:(Math.random()-.5)*0.4, vy:Math.random()*0.7+0.3,
-          r:2.5+Math.random()*3.5, a:0.6, life:1, decay:0.02, c:'rgba(46,158,110,' });
+      for (var i = 0; i < 80; i++) {                    // капель больше
+        var ang = Math.random() * 6.2832, rad = Math.random() * Math.random() * 92; // облако крупнее, гуще к центру
+        parts.push({ x: nx + Math.cos(ang) * rad + (Math.random()-.5)*10, y: ny + Math.sin(ang) * rad + (Math.random()-.5)*10,
+          vx: (Math.random()-.5)*0.5, vy: Math.random()*0.45+0.15, r: 0.4 + Math.random()*1.3, // капли мельче
+          a: 0.4 + Math.random()*0.4, life: 1, decay: 0.011 + Math.random()*0.018, c: COL[(Math.random()*COL.length)|0] });
       }
     }
     function tick(ts) {
@@ -453,18 +451,17 @@
       ctx.clearRect(0, 0, CW, CH);
       if (p < 1) {
         emit(nz.x, nz.y);
-        var g = ctx.createRadialGradient(nz.x, nz.y, 0, nz.x, nz.y, 92);
-        g.addColorStop(0, 'rgba(120,224,181,0.28)'); g.addColorStop(1, 'rgba(120,224,181,0)');
-        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(nz.x, nz.y, 92, 0, 7); ctx.fill();
-        ctx.fillStyle = 'rgba(255,255,255,0.92)'; ctx.beginPath(); ctx.arc(nz.x, nz.y, 3.2, 0, 7); ctx.fill();
+        var g = ctx.createRadialGradient(nz.x, nz.y, 0, nz.x, nz.y, 130);  // туман крупнее
+        g.addColorStop(0, 'rgba(120,224,181,0.30)'); g.addColorStop(1, 'rgba(120,224,181,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(nz.x, nz.y, 130, 0, 7); ctx.fill();
       }
       for (var i = parts.length - 1; i >= 0; i--) {
-        var q = parts[i]; q.x += q.vx; q.y += q.vy; q.vy += 0.015; q.life -= q.decay;
+        var q = parts[i]; q.x += q.vx; q.y += q.vy; q.vy += 0.012; q.life -= q.decay;
         if (q.life <= 0) { parts.splice(i, 1); continue; }
         ctx.fillStyle = q.c + (q.a * q.life).toFixed(3) + ')';
         ctx.beginPath(); ctx.arc(q.x, q.y, q.r, 0, 7); ctx.fill();
       }
-      centers.forEach(function (c) { if (!c.done && nz.x >= c.cx - 28) { c.done = true; c.el.classList.add('sprayed-in'); } });
+      centers.forEach(function (c) { if (!c.done && nz.x >= c.cx - 26) { c.done = true; c.el.classList.add('sprayed-in'); } });
       if (p < 1 || parts.length) requestAnimationFrame(tick);
       else {
         tiles.forEach(function (t) { t.classList.add('sprayed-in'); });
