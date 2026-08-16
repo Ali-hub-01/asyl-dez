@@ -1275,40 +1275,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .section-light:nth-of-type(even)::after { border-color: rgba(44,160,160,0.10); top: auto; bottom: 22%; }
 
-/* ===== Спрей-проявление секции «Объекты» ===== */
+/* ===== Спрей-проявление «Объекты» (canvas-аэрозоль) ===== */
 .objects { position: relative; }
 .objects li {
-  opacity: 0; transform: translateY(22px) scale(.93); filter: blur(7px);
-  transition: opacity .5s ease, transform .6s cubic-bezier(.2,.85,.25,1), filter .45s ease;
+  opacity: 0; transform: translateY(20px) scale(.9); filter: blur(7px);
+  transition: opacity .5s ease, transform .55s cubic-bezier(.2,.9,.3,1.2), filter .45s ease;
 }
-.objects.is-sprayed li {
-  opacity: 1; transform: none; filter: none;
-  transition-delay: calc(var(--d, 0s) * 3.6 + .12s);
-}
-.spray-mist {
-  position: absolute; top: -10%; left: -28%; width: 42%; height: 120%;
-  z-index: 4; pointer-events: none; opacity: 0; border-radius: 50%;
-  background: radial-gradient(58% 58% at 50% 45%, rgba(120,224,181,.55), rgba(46,158,110,.30) 46%, transparent 72%);
-  filter: blur(16px);
-}
-.objects.is-sprayed .spray-mist { animation: spraySweep 1.8s cubic-bezier(.45,0,.25,1) forwards; }
-@keyframes spraySweep {
-  0%   { transform: translateX(0)    rotate(-9deg) scaleX(.7);  opacity: 0; }
-  14%  { opacity: .95; }
-  82%  { opacity: .55; }
-  100% { transform: translateX(345%) rotate(-9deg) scaleX(1.1); opacity: 0; }
-}
-.spray-drop {
-  position: absolute; z-index: 4; pointer-events: none; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, rgba(150,240,205,.95), rgba(46,158,110,.5) 70%, transparent);
-  opacity: 0; animation: sprayDrop linear forwards;
-}
-@keyframes sprayDrop {
-  0%   { opacity: 0; transform: translate(0,0) scale(.6); }
-  12%  { opacity: .9; }
-  100% { opacity: 0; transform: translate(var(--dx,60vw), var(--dy,0)) scale(1); }
-}
+.objects li.sprayed-in { opacity: 1; transform: none; filter: none; }
+.spray-canvas { position: absolute; left: 0; top: -14px; width: 100%; height: calc(100% + 28px); pointer-events: none; z-index: 5; }
 @media (prefers-reduced-motion: reduce) {
   .objects li { opacity: 1; transform: none; filter: none; }
-  .spray-mist, .spray-drop { display: none; }
+  .spray-canvas { display: none; }
 }
