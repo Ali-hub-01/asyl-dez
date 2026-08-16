@@ -1246,7 +1246,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* ===== Обогащение фона секций: споры-точки + арка-дуга + мягкий свет ===== */
 .section { overflow: hidden; }
-.section > .container, .section > * { position: relative; z-index: 1; }
+.section > .container { position: relative; z-index: 1; }
 .section::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 /* светлые/мятные — зелёные точки-споры + свет */
 .section-light::before, .section-mint::before {
