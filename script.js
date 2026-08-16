@@ -408,3 +408,38 @@
     requestAnimationFrame(tick);
   }
 })();
+
+/* ---------- Спрей-проявление секции «Объекты» ---------- */
+(function () {
+  var wrap = document.querySelector('.objects');
+  if (!wrap) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { wrap.classList.add('is-sprayed'); return; }
+  var mist = document.createElement('span');
+  mist.className = 'spray-mist'; mist.setAttribute('aria-hidden', 'true');
+  wrap.appendChild(mist);
+  var fired = false;
+  function spray() {
+    if (fired) return; fired = true;
+    wrap.classList.add('is-sprayed');
+    for (var i = 0; i < 24; i++) {
+      var d = document.createElement('span');
+      d.className = 'spray-drop'; d.setAttribute('aria-hidden', 'true');
+      var size = 3 + Math.random() * 7;
+      d.style.top = (6 + Math.random() * 86) + '%';
+      d.style.left = (-4 + Math.random() * 14) + '%';
+      d.style.width = size + 'px'; d.style.height = size + 'px';
+      d.style.setProperty('--dx', (55 + Math.random() * 75) + 'vw');
+      d.style.setProperty('--dy', (Math.random() * 46 - 23) + 'px');
+      d.style.animationDelay = (Math.random() * 0.5) + 's';
+      d.style.animationDuration = (1 + Math.random() * 0.7) + 's';
+      wrap.appendChild(d);
+      (function (el) { setTimeout(function () { el.remove(); }, 2400); })(d);
+    }
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { spray(); io.disconnect(); } });
+    }, { threshold: 0.3 });
+    io.observe(wrap);
+  } else { spray(); }
+})();
