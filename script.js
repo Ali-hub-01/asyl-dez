@@ -432,14 +432,19 @@
       var r = t.getBoundingClientRect();
       return { el: t, cx: r.left + r.width / 2 - crect.left, done: false };
     });
+    // вертикальная полоса плиток (чтобы дымка шла по ним)
+    var tb = tiles.map(function (t) { var r = t.getBoundingClientRect(); return { top: r.top - crect.top, bot: r.bottom - crect.top }; });
+    var topY = Math.min.apply(null, tb.map(function (o) { return o.top; }));
+    var botY = Math.max.apply(null, tb.map(function (o) { return o.bot; }));
+    var midY = (topY + botY) / 2, amp = (botY - topY) / 2;
     var COL = ['rgba(52,174,134,', 'rgba(46,158,110,', 'rgba(120,224,181,', 'rgba(44,160,160,', 'rgba(200,245,225,'];
     var parts = [], start = null, DUR = 2000;
     function nozzle(p) {
-      return { x: -0.04 * CW + p * 1.08 * CW, y: CH * 0.34 + Math.sin(p * Math.PI) * CH * 0.30 };
+      return { x: -0.06 * CW + p * 1.12 * CW, y: midY + Math.sin(p * Math.PI) * amp * 0.5 };
     }
     function emit(nx, ny) {
-      for (var i = 0; i < 80; i++) {                    // капель больше
-        var ang = Math.random() * 6.2832, rad = Math.random() * Math.random() * 92; // облако крупнее, гуще к центру
+      for (var i = 0; i < 110; i++) {                    // капель больше
+        var ang = Math.random() * 6.2832, rad = Math.random() * Math.random() * 165; // облако крупнее, гуще к центру
         parts.push({ x: nx + Math.cos(ang) * rad + (Math.random()-.5)*10, y: ny + Math.sin(ang) * rad + (Math.random()-.5)*10,
           vx: (Math.random()-.5)*0.5, vy: Math.random()*0.45+0.15, r: 0.4 + Math.random()*1.3, // капли мельче
           a: 0.4 + Math.random()*0.4, life: 1, decay: 0.011 + Math.random()*0.018, c: COL[(Math.random()*COL.length)|0] });
@@ -451,9 +456,9 @@
       ctx.clearRect(0, 0, CW, CH);
       if (p < 1) {
         emit(nz.x, nz.y);
-        var g = ctx.createRadialGradient(nz.x, nz.y, 0, nz.x, nz.y, 130);  // туман крупнее
-        g.addColorStop(0, 'rgba(120,224,181,0.30)'); g.addColorStop(1, 'rgba(120,224,181,0)');
-        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(nz.x, nz.y, 130, 0, 7); ctx.fill();
+        var g = ctx.createRadialGradient(nz.x, nz.y, 0, nz.x, nz.y, 290);  // туман крупнее
+        g.addColorStop(0, 'rgba(120,224,181,0.34)'); g.addColorStop(1, 'rgba(120,224,181,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(nz.x, nz.y, 290, 0, 7); ctx.fill();
       }
       for (var i = parts.length - 1; i >= 0; i--) {
         var q = parts[i]; q.x += q.vx; q.y += q.vy; q.vy += 0.012; q.life -= q.decay;
