@@ -201,7 +201,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .header-phone:hover { color: var(--green-light); }
 
 .burger {
-  margin-left: auto;
+  margin-left: 10px;
   width: 46px; height: 46px;
   display: grid; place-items: center;
   gap: 0;
@@ -1286,4 +1286,314 @@ button, input, select, textarea { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .objects li { opacity: 1; transform: none; filter: none; }
   .spray-canvas { display: none; }
+}
+
+/* ============================================================
+   v8: KZ/RU · фото · листья · доп. анимации
+   ============================================================ */
+
+/* ---------- Переключатель языков ---------- */
+.lang {
+  display: flex;
+  margin-left: auto;
+  flex-shrink: 0;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(254, 254, 254, .08);
+  border: 1px solid rgba(254, 254, 254, .18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.lang-btn {
+  border: 0;
+  background: transparent;
+  color: rgba(254, 254, 254, .6);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: .1em;
+  line-height: 1;
+  padding: 8px 13px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color .3s ease, background .3s ease, box-shadow .3s ease;
+}
+.lang-btn:hover { color: #fff; }
+.lang-btn.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--green-light), var(--green-deep));
+  box-shadow: 0 6px 14px -6px rgba(46, 158, 110, .7);
+}
+@media (min-width: 1024px) {
+  .lang { margin-left: 0; }
+}
+
+/* ---------- Hero: парящие фото-карточки ---------- */
+.hero-ph {
+  position: absolute;
+  z-index: 2;
+  width: clamp(150px, 13.5vw, 215px);
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(254, 254, 254, .2);
+  box-shadow: 0 34px 80px -24px rgba(3, 14, 22, .85);
+  opacity: 0;
+  display: none;
+  animation: phIn 1.3s var(--ease-out) 1.2s forwards;
+  will-change: translate;
+}
+.hero-ph-l { left: max(2.6vw, 18px); top: 23%; transform: rotate(-5deg); }
+.hero-ph-r { right: max(2.6vw, 18px); top: 31%; transform: rotate(5.5deg); animation-delay: 1.38s; }
+@keyframes phIn { to { opacity: 1; } }
+.hero-ph img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 7 / 9.6;
+  object-fit: cover;
+  animation: phFloat 7.5s ease-in-out 2.4s infinite alternate;
+}
+.hero-ph-r img { animation-duration: 8.5s; animation-delay: 2.9s; }
+@keyframes phFloat {
+  from { transform: translateY(0) scale(1.06); }
+  to   { transform: translateY(-12px) scale(1.06); }
+}
+.hero-ph::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(12, 44, 66, .18), transparent 40%, rgba(12, 102, 76, .28));
+  pointer-events: none;
+}
+.hero-ph figcaption {
+  position: absolute;
+  left: 10px; bottom: 10px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(8, 26, 38, .6);
+  border: 1px solid rgba(254, 254, 254, .22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.hero-ph-dot {
+  width: 7px; height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--green-light);
+  box-shadow: 0 0 10px rgba(52, 174, 134, .9);
+}
+@media (min-width: 1200px) {
+  .hero-ph { display: block; }
+}
+
+/* лёгкое дыхание градиент-меша hero */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-mesh {
+    background-size: 130% 130%;
+    animation: meshDrift 18s ease-in-out infinite alternate;
+  }
+  @keyframes meshDrift {
+    from { background-position: 0% 0%; }
+    to   { background-position: 100% 100%; }
+  }
+}
+
+/* ---------- Услуги: фото в широкой карточке ---------- */
+.svc-ph {
+  position: relative;
+  margin: -34px -28px 24px;
+  height: 200px;
+  overflow: hidden;
+}
+.svc-ph img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform .9s var(--ease-out);
+}
+.svc:hover .svc-ph img { transform: scale(1.1); }
+.svc-ph::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(12, 44, 66, .12), transparent 45%);
+  pointer-events: none;
+}
+.svc-num { z-index: 2; }
+.svc-body { position: relative; z-index: 1; }
+@media (min-width: 900px) {
+  .svc-wide { position: relative; }
+  .svc-wide .svc-ph {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 47%;
+    height: auto;
+    margin: 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 34%);
+    mask-image: linear-gradient(90deg, transparent, #000 34%);
+  }
+  .svc-wide .svc-ph::after {
+    background: linear-gradient(180deg, rgba(12, 44, 66, .1), transparent 40%, rgba(12, 102, 76, .18));
+  }
+  .svc-wide .svc-body { max-width: 57%; }
+}
+
+/* ---------- Почему мы: фото-карточка у заголовка ---------- */
+.why-top { display: flex; flex-direction: column; }
+.why-ph {
+  position: relative;
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 34px 70px -32px rgba(12, 44, 66, .55);
+  margin-bottom: clamp(40px, 6vw, 64px);
+}
+.why-ph img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 30%;
+  transition: transform 1s var(--ease-out);
+}
+.why-ph:hover img { transform: scale(1.06); }
+.why-ph::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(12, 44, 66, .35));
+  pointer-events: none;
+}
+.why-ph figcaption {
+  position: absolute;
+  left: 12px; bottom: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: rgba(8, 26, 38, .6);
+  border: 1px solid rgba(254, 254, 254, .22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+@media (min-width: 900px) {
+  .why-top {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 48px;
+    margin-bottom: clamp(40px, 6vw, 60px);
+  }
+  .why-top .sec-head { margin-bottom: 0; }
+  .why-ph {
+    width: 330px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+    transform: rotate(1.6deg);
+    transition: transform .6s var(--ease-out), box-shadow .6s ease, opacity .9s var(--ease-out) var(--d, 0s);
+  }
+  .why-ph:hover { transform: rotate(0deg) translateY(-6px); }
+  .why-ph img { aspect-ratio: 3 / 3.4; }
+}
+
+/* ---------- Этапы: фото процесса ---------- */
+.workshots {
+  margin-top: clamp(42px, 6vw, 66px);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.wshot {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 26px 54px -30px rgba(12, 44, 66, .5);
+}
+.wshot img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10.5;
+  object-fit: cover;
+  transition: transform 1s var(--ease-out);
+}
+.wshot:hover img { transform: scale(1.07); }
+.wshot::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 48%, rgba(9, 32, 47, .74));
+  pointer-events: none;
+}
+.wshot figcaption {
+  position: absolute;
+  left: 18px; right: 18px; bottom: 15px;
+  z-index: 2;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: .03em;
+  line-height: 1.35;
+  text-shadow: 0 2px 10px rgba(6, 20, 30, .6);
+}
+@media (min-width: 900px) {
+  .workshots { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .wshot img { aspect-ratio: 4 / 4.6; }
+  .wshot:nth-child(2) { transform: translateY(16px); }
+}
+
+/* ---------- Ботанические листья-декор ---------- */
+.leaf-float {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .17;
+  animation: leafSway 10s ease-in-out infinite alternate;
+}
+.leaf-a { width: clamp(90px, 11vw, 160px); right: 3%; top: 34px; rotate: 16deg; }
+.leaf-b { width: clamp(70px, 8vw, 120px); left: -28px; bottom: 60px; rotate: -26deg; animation-delay: -4s; }
+.leaf-c { width: clamp(80px, 9vw, 130px); right: -20px; top: 70px; rotate: -14deg; animation-delay: -2.5s; }
+@keyframes leafSway {
+  from { transform: rotate(-4deg) translateY(0); }
+  to   { transform: rotate(5deg) translateY(14px); }
+}
+
+/* ---------- Этапы: линия рисуется при появлении ---------- */
+.steps-line[data-rv] {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.7s var(--ease-out) .25s;
+}
+.steps-line[data-rv].in { transform: scaleX(1); }
+
+/* ---------- Мелочи ---------- */
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .leaf-float, .hero-ph img { animation: none; }
+  .hero-ph { opacity: 1; }
+  .hero-mesh { animation: none; }
+  .steps-line[data-rv] { transform: scaleX(1); }
+}
+
+/* ---------- Мобильный хедер: компактнее, всё влезает ---------- */
+@media (max-width: 1023.5px) {
+  .header-in { gap: 10px; }
+  .brand { gap: 9px; }
+  .brand-mark { width: 36px; }
+  .brand-text strong { font-size: 16.5px; }
+  .brand-text small { font-size: 9px; letter-spacing: .17em; }
+  .lang { padding: 2px; }
+  .lang-btn { padding: 7px 10px; font-size: 11.5px; }
+  .burger { margin-left: 0; width: 42px; height: 42px; flex-shrink: 0; }
 }

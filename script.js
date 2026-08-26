@@ -25,13 +25,19 @@
   });
 
   /* ----------------------------------------------------------
-     WhatsApp-ссылки с готовым текстом (data-wa-text)
+     WhatsApp-ссылки с готовым текстом (data-wa-text / data-wa-text-kz)
      ---------------------------------------------------------- */
-  document.querySelectorAll('a[data-wa]').forEach(function (a) {
-    var text = a.getAttribute('data-wa-text') ||
-      'Здравствуйте! Хочу оставить заявку на санитарную обработку.';
-    a.href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(text);
-  });
+  function refreshWaLinks() {
+    var kz = document.documentElement.dataset.lang === 'kz';
+    document.querySelectorAll('a[data-wa]').forEach(function (a) {
+      var text = kz
+        ? (a.getAttribute('data-wa-text-kz') || 'Сәлеметсіз бе! Санитариялық өңдеуге өтінім қалдырғым келеді.')
+        : (a.getAttribute('data-wa-text') || 'Здравствуйте! Хочу оставить заявку на санитарную обработку.');
+      a.href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(text);
+    });
+  }
+  refreshWaLinks();
+  window.__asylRefreshWa = refreshWaLinks;
 
   /* ----------------------------------------------------------
      Header: фон при скролле + скрытие вниз/показ вверх
@@ -237,14 +243,22 @@
       });
       if (!ok) return;
 
-      var msg =
-        'Здравствуйте! Заявка с сайта Asyl Dez:\n' +
-        '— Имя: ' + name + '\n' +
-        '— Телефон: ' + phone + '\n' +
-        '— Услуга: ' + form.service.value + '\n' +
-        '— Город: ' + form.city.value + '\n' +
-        '— Объект: ' + form.object.value +
-        (form.message.value.trim() ? '\n— Комментарий: ' + form.message.value.trim() : '');
+      var kz = document.documentElement.dataset.lang === 'kz';
+      var msg = kz
+        ? ('Сәлеметсіз бе! Asyl Dez сайтынан өтінім:\n' +
+          '· Аты: ' + name + '\n' +
+          '· Телефон: ' + phone + '\n' +
+          '· Қызмет: ' + form.service.value + '\n' +
+          '· Қала: ' + form.city.value + '\n' +
+          '· Нысан: ' + form.object.value +
+          (form.message.value.trim() ? '\n· Түсініктеме: ' + form.message.value.trim() : ''))
+        : ('Здравствуйте! Заявка с сайта Asyl Dez:\n' +
+          '· Имя: ' + name + '\n' +
+          '· Телефон: ' + phone + '\n' +
+          '· Услуга: ' + form.service.value + '\n' +
+          '· Город: ' + form.city.value + '\n' +
+          '· Объект: ' + form.object.value +
+          (form.message.value.trim() ? '\n· Комментарий: ' + form.message.value.trim() : ''));
 
       trackLeadSubmit({
         service: form.service.value,
@@ -482,4 +496,103 @@
     }, { threshold: 0.3 });
     io.observe(wrap);
   } else { run(); }
+})();
+
+/* ============================================================
+   I18N: переключатель KZ / RU
+   RU остаётся в разметке (SEO), KZ хранится в data-kz-атрибутах.
+   Выбор сохраняется в localStorage, <html lang> меняется.
+   ============================================================ */
+(function () {
+  'use strict';
+  var KEY = 'asyl-lang';
+  var root = document.documentElement;
+
+  var TITLE = {
+    ru: document.title,
+    kz: 'Asyl Dez: санитариялық қызмет. Дезинсекция, дератизация, дезинфекция | Алматы · Астана · Шымкент · Түркістан'
+  };
+  var metaDesc = document.querySelector('meta[name="description"]');
+  var DESC = {
+    ru: metaDesc ? metaDesc.getAttribute('content') : '',
+    kz: 'Asyl Dez: 2016 жылдан бері кәсіби санитариялық қызмет. Мемлекеттік лицензия бойынша дезинсекция, дератизация, дезинфекция, дезодорация және профилактика. Алматы, Астана, Шымкент және Түркістанда 24/7 жұмыс істейміз. Нәтиже кепілдігі.'
+  };
+
+  function apply(lang) {
+    var kz = lang === 'kz';
+    root.lang = kz ? 'kk' : 'ru';
+    root.dataset.lang = lang;
+
+    // текст (innerHTML, чтобы работали <em>/<br>/<i> внутри переводов)
+    document.querySelectorAll('[data-kz]').forEach(function (el) {
+      if (el.dataset.ru === undefined) el.dataset.ru = el.innerHTML;
+      var html = kz ? el.dataset.kz : el.dataset.ru;
+      if (el.innerHTML !== html) el.innerHTML = html;
+    });
+    // плейсхолдеры
+    document.querySelectorAll('[data-kz-ph]').forEach(function (el) {
+      if (el.dataset.ruPh === undefined) el.dataset.ruPh = el.getAttribute('placeholder') || '';
+      el.setAttribute('placeholder', kz ? el.dataset.kzPh : el.dataset.ruPh);
+    });
+    // aria-label
+    document.querySelectorAll('[data-kz-aria]').forEach(function (el) {
+      if (el.dataset.ruAria === undefined) el.dataset.ruAria = el.getAttribute('aria-label') || '';
+      el.setAttribute('aria-label', kz ? el.dataset.kzAria : el.dataset.ruAria);
+    });
+    // alt
+    document.querySelectorAll('[data-kz-alt]').forEach(function (el) {
+      if (el.dataset.ruAlt === undefined) el.dataset.ruAlt = el.getAttribute('alt') || '';
+      el.setAttribute('alt', kz ? el.dataset.kzAlt : el.dataset.ruAlt);
+    });
+
+    document.title = TITLE[lang] || TITLE.ru;
+    if (metaDesc) metaDesc.setAttribute('content', DESC[lang] || DESC.ru);
+
+    document.querySelectorAll('.lang-btn').forEach(function (b) {
+      var active = b.getAttribute('data-lang') === lang;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', active);
+    });
+
+    if (window.__asylRefreshWa) window.__asylRefreshWa();
+    try { localStorage.setItem(KEY, lang); } catch (e) {}
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      apply(b.getAttribute('data-lang'));
+    });
+  });
+
+  var saved = 'ru';
+  try { saved = localStorage.getItem(KEY) || 'ru'; } catch (e) {}
+  if (saved === 'kz') apply('kz');
+})();
+
+/* ============================================================
+   Параллакс парящих фото в hero (мышь, только desktop)
+   ============================================================ */
+(function () {
+  'use strict';
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  var cards = document.querySelectorAll('.hero-ph');
+  var hero = document.querySelector('.hero');
+  if (!cards.length || !hero) return;
+  var raf = null;
+  hero.addEventListener('mousemove', function (e) {
+    if (raf) return;
+    raf = requestAnimationFrame(function () {
+      var dx = e.clientX / window.innerWidth - 0.5;
+      var dy = e.clientY / window.innerHeight - 0.5;
+      cards.forEach(function (c) {
+        var p = parseFloat(c.getAttribute('data-par')) || 20;
+        c.style.translate = (dx * p) + 'px ' + (dy * p * 0.7) + 'px';
+      });
+      raf = null;
+    });
+  });
+  hero.addEventListener('mouseleave', function () {
+    cards.forEach(function (c) { c.style.translate = '0px 0px'; });
+  });
 })();
