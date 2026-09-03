@@ -26,7 +26,7 @@
 
   <link rel="preload" href="assets/fonts/adineuePROKZ-Black.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="assets/fonts/adineuePROKZ-Light.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=9">
   <script>
     (function(){try{var l=localStorage.getItem('asyl-lang');if(l==='kz'){document.documentElement.lang='kk';document.documentElement.dataset.lang='kz';}}catch(e){}})();
   </script>
@@ -153,6 +153,7 @@
         <figcaption><span class="hero-ph-dot"></span><span data-kz="2016 жылдан бері">с 2016 года</span></figcaption>
       </figure>
 
+      <div class="hero-layout">
       <div class="hero-in">
         <p class="hero-kicker" style="--d:.15s"><span class="pulse-dot" aria-hidden="true"></span><span data-kz="Санитариялық қызмет · Қазақстан · 2016 жылдан бері">Санитарная служба · Казахстан · с 2016 года</span></p>
         <h1 class="hero-title">
@@ -172,6 +173,14 @@
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3.4 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span data-kz="24/7 жұмыс істейміз">Работаем 24/7</span></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.3-6.5-10A6.5 6.5 0 0112 4.5 6.5 6.5 0 0118.5 11c0 4.7-6.5 10-6.5 10z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="11" r="2.3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span data-kz="4 қала">4 города</span></li>
         </ul>
+      </div>
+
+      <div class="hero-media" style="--d:1.15s">
+        <div class="hero-phone">
+          <video class="hero-video" src="assets/video/hero.mp4" poster="assets/video/hero.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Видео: специалист Asyl Dez проводит обработку" data-kz-aria="Видео: Asyl Dez маманы өңдеу жүргізуде"></video>
+          <span class="hero-phone-cap"><span class="hero-ph-dot" aria-hidden="true"></span><span data-kz="ASYL DEZ жұмыста">ASYL DEZ в работе</span></span>
+        </div>
+      </div>
       </div>
 
       <a class="hero-scroll" href="#uslugi" aria-label="Прокрутить к услугам" data-kz-aria="Қызметтерге өту">
@@ -318,6 +327,37 @@
           <li style="--d:.18s"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 27h20M8 27V14h16v13M16 5l10 6H6l10-6zM12 18v5M16 18v5M20 18v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span data-kz="Мемлекеттік нысандар">Государственные объекты</span></li>
           <li style="--d:.22s"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 20V10c0-2 1-3 3-3h13c3 0 6 2 6 5v8H5zM5 20v3h3M27 20v3h-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="10" cy="24" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="22" cy="24" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-kz="Көлік">Транспорт</span></li>
         </ul>
+
+        <!-- видео-галерея реальных работ -->
+        <div class="worksites">
+          <header class="worksites-head" data-rv>
+            <h3 class="worksites-title" data-kz="Нысандардағы жұмыстар">Работы на объектах</h3>
+            <p class="worksites-sub" data-kz="Мектептер, кәсіпорындар және басқа нысандар: командамыз жұмысының нақты кадрлары. Дыбыспен көру үшін видеоны басыңыз.">Школы, предприятия и другие объекты: реальные кадры работы нашей команды.
+            Нажмите на видео, чтобы посмотреть со звуком.</p>
+          </header>
+          <div class="worksites-grid">
+            <button class="worksite" type="button" data-rv style="--d:.02s" data-lightbox-video="assets/video/obekt-1.mp4" data-poster="assets/video/obekt-1.jpg" aria-label="Смотреть видео работы на объекте, 1" data-kz-aria="Нысандағы жұмыс видеосын көру, 1">
+              <img src="assets/video/obekt-1.jpg" alt="Работа Asyl Dez на объекте, видео 1" data-kz-alt="Asyl Dez нысандағы жұмысы, 1-видео" loading="lazy" decoding="async">
+              <span class="worksite-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5l9 5.5-9 5.5z" fill="currentColor"/></svg></span>
+            </button>
+            <button class="worksite" type="button" data-rv style="--d:.07s" data-lightbox-video="assets/video/obekt-2.mp4" data-poster="assets/video/obekt-2.jpg" aria-label="Смотреть видео работы на объекте, 2" data-kz-aria="Нысандағы жұмыс видеосын көру, 2">
+              <img src="assets/video/obekt-2.jpg" alt="Работа Asyl Dez на объекте, видео 2" data-kz-alt="Asyl Dez нысандағы жұмысы, 2-видео" loading="lazy" decoding="async">
+              <span class="worksite-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5l9 5.5-9 5.5z" fill="currentColor"/></svg></span>
+            </button>
+            <button class="worksite" type="button" data-rv style="--d:.12s" data-lightbox-video="assets/video/obekt-3.mp4" data-poster="assets/video/obekt-3.jpg" aria-label="Смотреть видео работы на объекте, 3" data-kz-aria="Нысандағы жұмыс видеосын көру, 3">
+              <img src="assets/video/obekt-3.jpg" alt="Работа Asyl Dez на объекте, видео 3" data-kz-alt="Asyl Dez нысандағы жұмысы, 3-видео" loading="lazy" decoding="async">
+              <span class="worksite-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5l9 5.5-9 5.5z" fill="currentColor"/></svg></span>
+            </button>
+            <button class="worksite" type="button" data-rv style="--d:.17s" data-lightbox-video="assets/video/obekt-4.mp4" data-poster="assets/video/obekt-4.jpg" aria-label="Смотреть видео работы на объекте, 4" data-kz-aria="Нысандағы жұмыс видеосын көру, 4">
+              <img src="assets/video/obekt-4.jpg" alt="Работа Asyl Dez на объекте, видео 4" data-kz-alt="Asyl Dez нысандағы жұмысы, 4-видео" loading="lazy" decoding="async">
+              <span class="worksite-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5l9 5.5-9 5.5z" fill="currentColor"/></svg></span>
+            </button>
+            <button class="worksite" type="button" data-rv style="--d:.22s" data-lightbox-video="assets/video/obekt-5.mp4" data-poster="assets/video/obekt-5.jpg" aria-label="Смотреть видео работы на объекте, 5" data-kz-aria="Нысандағы жұмыс видеосын көру, 5">
+              <img src="assets/video/obekt-5.jpg" alt="Работа Asyl Dez на объекте, видео 5" data-kz-alt="Asyl Dez нысандағы жұмысы, 5-видео" loading="lazy" decoding="async">
+              <span class="worksite-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5l9 5.5-9 5.5z" fill="currentColor"/></svg></span>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -380,26 +420,44 @@
           <div class="counter"><strong><span data-count="5">0</span></strong><span class="counter-cap" data-kz="санитариялық өңдеу бағыты">направлений санитарной обработки</span></div>
         </div>
 
-        <div class="trust">
-          <article class="trust-card" data-rv style="--d:.03s">
+        <div class="license" data-rv>
+          <div class="license-info">
             <div class="trust-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="5" width="26" height="30" rx="3"/><path d="M13 13h14M13 19h14M13 25h8"/><circle cx="27" cy="28" r="4.5"/><path d="M25.3 28l1.4 1.4 2.6-2.7"/></svg></div>
             <h3 data-kz="Мемлекеттік лицензия">Государственная лицензия</h3>
-            <p data-kz="Ресми жұмыс істейміз: мемлекеттік лицензия, шарт және жабу құжаттары. Заңды тұлғалар: «Служба дезинфекции KADDEZ» ЖШС және «Asyl Group Services» ЖШС. Нәтижеге жауапкершілік аламыз.">Работаем официально: гос. лицензия, договор и закрывающие документы. Юридические лица:
-            ТОО «Служба дезинфекции KADDEZ» и ТОО «Asyl Group Services». Несём ответственность за результат.</p>
+            <p data-kz="№ KZ30LAM00001599, «Служба дезинфекции KAZDEZ» ЖШС. Алматы қаласының санитариялық-эпидемиологиялық бақылау департаменті берген, 14.04.2025. Ресми жұмыс істейміз және нәтижеге жауапкершілік аламыз.">№ KZ30LAM00001599, ТОО «Служба дезинфекции KAZDEZ». Выдана Департаментом
+            санитарно-эпидемиологического контроля г. Алматы, 14.04.2025. Работаем официально и несём
+            ответственность за результат.</p>
+            <span class="license-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5L21 21M11 8v6M8 11h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-kz="Үлкейту үшін бетті басыңыз">Нажмите на страницу, чтобы увеличить</span></span>
+          </div>
+          <div class="license-pages">
+            <button class="license-page" type="button" data-lightbox-img="assets/license/license-1.webp" data-lightbox-alt="Государственная лицензия KZ30LAM00001599, страница 1" aria-label="Открыть лицензию крупно, страница 1" data-kz-aria="Лицензияны үлкейтіп ашу, 1-бет">
+              <img src="assets/license/license-1.webp" alt="Государственная лицензия KZ30LAM00001599, страница 1" data-kz-alt="KZ30LAM00001599 мемлекеттік лицензиясы, 1-бет" width="1061" height="1500" loading="lazy" decoding="async">
+              <span class="license-zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5L21 21M11 8v6M8 11h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            </button>
+            <button class="license-page" type="button" data-lightbox-img="assets/license/license-3.webp" data-lightbox-alt="Государственная лицензия KZ30LAM00001599, приложение" aria-label="Открыть лицензию крупно, приложение" data-kz-aria="Лицензияны үлкейтіп ашу, қосымша">
+              <img src="assets/license/license-3.webp" alt="Государственная лицензия KZ30LAM00001599, приложение" data-kz-alt="KZ30LAM00001599 мемлекеттік лицензиясы, қосымша" width="1061" height="1500" loading="lazy" decoding="async">
+              <span class="license-zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5L21 21M11 8v6M8 11h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="trust">
+          <article class="trust-card trust-card-media" data-rv style="--d:.03s">
+            <div class="trust-media-text">
+              <div class="trust-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 5h8M18 5v7L9 27c-1.6 2.7.3 6 3.4 6h15.2c3.1 0 5-3.3 3.4-6l-9-15V5"/><path d="M13 24h14"/><circle cx="17" cy="28.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="23" cy="27.5" r="1.1" fill="currentColor" stroke="none"/></svg></div>
+              <h3 data-kz="Сертификатталған препараттар">Сертифицированные препараты</h3>
+              <p data-kz="Кәсіби сертификатталған құралдар мен жабдықты қолданамыз. Ұсынымдарымызды сақтағанда өңдеу адамдар мен үй жануарлары үшін қауіпсіз болатындай әдіс таңдаймыз.">Используем профессиональные сертифицированные средства и оборудование. Подбираем метод так,
+              чтобы обработка была безопасной для людей и питомцев при соблюдении наших рекомендаций.</p>
+            </div>
+            <video class="trust-video" src="assets/video/sredstva.mp4" poster="assets/video/sredstva.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Видео: сертифицированные препараты и оборудование Asyl Dez" data-kz-aria="Видео: Asyl Dez сертификатталған препараттары мен жабдығы"></video>
           </article>
           <article class="trust-card" data-rv style="--d:.09s">
-            <div class="trust-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 5h8M18 5v7L9 27c-1.6 2.7.3 6 3.4 6h15.2c3.1 0 5-3.3 3.4-6l-9-15V5"/><path d="M13 24h14"/><circle cx="17" cy="28.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="23" cy="27.5" r="1.1" fill="currentColor" stroke="none"/></svg></div>
-            <h3 data-kz="Сертификатталған препараттар">Сертифицированные препараты</h3>
-            <p data-kz="Кәсіби сертификатталған құралдар мен жабдықты қолданамыз. Ұсынымдарымызды сақтағанда өңдеу адамдар мен үй жануарлары үшін қауіпсіз болатындай әдіс таңдаймыз.">Используем профессиональные сертифицированные средства и оборудование. Подбираем метод так,
-            чтобы обработка была безопасной для людей и питомцев при соблюдении наших рекомендаций.</p>
-          </article>
-          <article class="trust-card" data-rv style="--d:.15s">
             <div class="trust-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4l13 5v9c0 8.5-5.5 15.5-13 18C12.5 33.5 7 26.5 7 18V9l13-5z"/><path d="M14.5 19.5l4 4 7.5-8"/></svg></div>
             <h3 data-kz="Нәтиже кепілдігі">Гарантия результата</h3>
             <p data-kz="Өңдеуге кепілдік береміз. Кепілдік мерзімінде мәселе қайталанса, келіп қайта өңдейміз. Мақсатымыз: бір реттік шығу емес, нақты нәтиже.">Даём гарантию на обработку. Если проблема вернулась в гарантийный срок, приедем
             и обработаем повторно. Наша цель: результат, а не разовый выезд.</p>
           </article>
-          <article class="trust-card" data-rv style="--d:.21s">
+          <article class="trust-card" data-rv style="--d:.15s">
             <div class="trust-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><path d="M20 11v9l6 4"/><path d="M20 2v4M38 20h-4M20 38v-4M2 20h4" stroke-opacity=".5"/></svg></div>
             <h3 data-kz="Тәулік бойы, 24/7">Круглосуточно, 24/7</h3>
             <p data-kz="Өтінімдерді қабылдап, кез келген уақытта шығамыз: түнде, мереке мен демалыс күндері. Кафе мен бизнес үшін жұмыс емес уақытта, қонақтарыңызға білдірмей жұмыс істейміз.">Принимаем заявки и выезжаем в любое время: ночью, в праздники и выходные.
@@ -446,19 +504,42 @@
           </article>
         </div>
 
-        <!-- фото процесса -->
+        <!-- видео процесса -->
         <div class="workshots">
           <figure class="wshot" data-rv style="--d:.05s">
-            <img src="assets/ph-livingroom.webp" alt="Специалист в защитном костюме обрабатывает гостиную" data-kz-alt="Қорғаныш костюміндегі маман қонақ бөлмені өңдеп жатыр" width="800" height="534" loading="lazy" decoding="async">
+            <video src="assets/video/process-kvartiry.mp4" poster="assets/video/process-kvartiry.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Видео: обработка квартиры специалистом Asyl Dez" data-kz-aria="Видео: Asyl Dez маманының пәтерді өңдеуі"></video>
             <figcaption data-kz="Пәтерлер мен үйлерді өңдеу">Обработка квартир и домов</figcaption>
           </figure>
           <figure class="wshot" data-rv style="--d:.13s">
-            <img src="assets/ph-warehouse.webp" alt="Обработка склада туман-генератором" data-kz-alt="Қойманы тұман-генератормен өңдеу" width="800" height="1067" loading="lazy" decoding="async">
+            <video src="assets/video/process-obekty.mp4" poster="assets/video/process-obekty.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Видео: обработка крупного объекта" data-kz-aria="Видео: ірі нысанды өңдеу"></video>
             <figcaption data-kz="Кез келген ауқымдағы нысандар">Объекты любого масштаба</figcaption>
           </figure>
           <figure class="wshot" data-rv style="--d:.21s">
-            <img src="assets/ph-kitchen.webp" alt="Чистая светлая кухня после санитарной обработки" data-kz-alt="Санитариялық өңдеуден кейінгі таза әрі жарық ас үй" width="800" height="534" loading="lazy" decoding="async">
-            <figcaption data-kz="Нәтиже: таза әрі қауіпсіз үй">Результат: чистый и безопасный дом</figcaption>
+            <video src="assets/video/process-uchastki.mp4" poster="assets/video/process-uchastki.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Видео: обработка жилого участка" data-kz-aria="Видео: тұрғын үй учаскесін өңдеу"></video>
+            <figcaption data-kz="Тұрғын үй учаскелері">Жилые участки</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= ВИДЕО-ОТЗЫВЫ ======================= -->
+    <section class="section section-light reviews-wrap" id="otzyvy">
+      <div class="container">
+        <header class="sec-head" data-rv>
+          <p class="sec-label"><span aria-hidden="true">06</span><span data-kz="Пікірлер">Отзывы</span></p>
+          <h2 class="sec-title" data-kz="Клиенттердің &lt;em&gt;пікірлері&lt;/em&gt;">Отзывы наших <em>клиентов</em></h2>
+          <p class="sec-sub" data-kz="Клиенттеріміздің шынайы видео-пікірлері. Дыбысты қосып, көріңіз: нәтиже туралы өздері айтады.">Живые видео-отзывы наших клиентов. Включите звук и посмотрите:
+          о результате они рассказывают сами.</p>
+        </header>
+        <div class="reviews">
+          <figure class="review" data-rv style="--d:.04s">
+            <video src="assets/video/review-1.mp4" poster="assets/video/review-1.jpg" controls playsinline preload="metadata" aria-label="Видео-отзыв клиента Asyl Dez, 1" data-kz-aria="Asyl Dez клиентінің видео-пікірі, 1"></video>
+          </figure>
+          <figure class="review" data-rv style="--d:.12s">
+            <video src="assets/video/review-2.mp4" poster="assets/video/review-2.jpg" controls playsinline preload="metadata" aria-label="Видео-отзыв клиента Asyl Dez, 2" data-kz-aria="Asyl Dez клиентінің видео-пікірі, 2"></video>
+          </figure>
+          <figure class="review" data-rv style="--d:.2s">
+            <video src="assets/video/review-3.mp4" poster="assets/video/review-3.jpg" controls playsinline preload="metadata" aria-label="Видео-отзыв клиента Asyl Dez, 3" data-kz-aria="Asyl Dez клиентінің видео-пікірі, 3"></video>
           </figure>
         </div>
       </div>
@@ -468,7 +549,7 @@
     <section class="section section-light faq-wrap" id="faq">
       <div class="container container-narrow">
         <header class="sec-head" data-rv>
-          <p class="sec-label"><span aria-hidden="true">06</span>FAQ</p>
+          <p class="sec-label"><span aria-hidden="true">07</span>FAQ</p>
           <h2 class="sec-title" data-kz="Жиі қойылатын &lt;em&gt;сұрақтар&lt;/em&gt;">Частые <em>вопросы</em></h2>
         </header>
         <div class="faq" id="faqList">
@@ -529,7 +610,7 @@
       <div class="container">
         <div class="lead">
           <div class="lead-info" data-rv>
-            <p class="sec-label sec-label-dark"><span aria-hidden="true">07</span><span data-kz="Өтінім">Заявка</span></p>
+            <p class="sec-label sec-label-dark"><span aria-hidden="true">08</span><span data-kz="Өтінім">Заявка</span></p>
             <h2 class="sec-title" data-kz="Өтінім қалдырыңыз: &lt;em&gt;кеңес береміз&lt;/em&gt; және құнын есептейміз">Оставьте заявку: <em>подскажем</em> и посчитаем стоимость</h2>
             <ul class="lead-points">
               <li data-kz="WhatsApp-та бірнеше минут ішінде жауап береміз">Ответим в WhatsApp в течение нескольких минут</li>
@@ -609,7 +690,7 @@
     <section class="section section-light contacts-wrap" id="kontakty">
       <div class="container">
         <header class="sec-head" data-rv>
-          <p class="sec-label"><span aria-hidden="true">08</span><span data-kz="Байланыс">Контакты</span></p>
+          <p class="sec-label"><span aria-hidden="true">09</span><span data-kz="Байланыс">Контакты</span></p>
           <h2 class="sec-title" data-kz="Біз &lt;em&gt;жақынбыз:&lt;/em&gt; төрт қалада">Мы <em>рядом:</em> в четырёх городах</h2>
         </header>
         <div class="contact-links" data-rv>
@@ -670,6 +751,12 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5A9.5 9.5 0 003.9 17L2.5 21.5 7.2 20A9.5 9.5 0 1012 2.5z" fill="currentColor"/><path d="M8.8 7.6c-.5 2.9 4.1 7.8 7.3 7.5l.9-1.9-2.3-1.4-1 .8c-1.2-.6-2.2-1.6-2.8-2.8l.9-1-1.3-2.3-1.7 1.1z" fill="#0C664C"/></svg>
   </a>
 
-  <script src="script.js?v=6" defer></script>
+  <!-- универсальный лайтбокс: лицензия (фото) и видео объектов -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lightbox-close" type="button" id="lightboxClose" aria-label="Закрыть" data-kz-aria="Жабу"><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
+    <div class="lightbox-body" id="lightboxBody"></div>
+  </div>
+
+  <script src="script.js?v=7" defer></script>
 </body>
 </html>

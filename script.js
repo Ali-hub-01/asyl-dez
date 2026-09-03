@@ -596,3 +596,101 @@
     cards.forEach(function (c) { c.style.translate = '0px 0px'; });
   });
 })();
+
+/* ============================================================
+   v7: Универсальный лайтбокс (фото лицензии / видео объектов)
+   Открытие: клик по [data-lightbox-img] или [data-lightbox-video].
+   Закрытие: крестик, клик вне контента, ESC.
+   ============================================================ */
+(function () {
+  'use strict';
+  var lb = document.getElementById('lightbox');
+  if (!lb) return;
+  var body = document.getElementById('lightboxBody');
+  var closeBtn = document.getElementById('lightboxClose');
+  var lastFocus = null;
+
+  function open(node) {
+    body.innerHTML = '';
+    body.appendChild(node);
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    lastFocus = document.activeElement;
+    closeBtn.focus();
+  }
+  function close() {
+    if (!lb.classList.contains('open')) return;
+    var v = body.querySelector('video');
+    if (v) v.pause();
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    setTimeout(function () { body.innerHTML = ''; }, 380);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  document.addEventListener('click', function (e) {
+    var imgBtn = e.target.closest('[data-lightbox-img]');
+    if (imgBtn) {
+      var img = document.createElement('img');
+      img.src = imgBtn.getAttribute('data-lightbox-img');
+      img.alt = imgBtn.getAttribute('data-lightbox-alt') || '';
+      open(img);
+      return;
+    }
+    var vidBtn = e.target.closest('[data-lightbox-video]');
+    if (vidBtn) {
+      var v = document.createElement('video');
+      v.src = vidBtn.getAttribute('data-lightbox-video');
+      var poster = vidBtn.getAttribute('data-poster');
+      if (poster) v.poster = poster;
+      v.controls = true;
+      v.playsInline = true;
+      v.setAttribute('playsinline', '');
+      open(v);
+      var pr = v.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    }
+  });
+  lb.addEventListener('click', function (e) {
+    if (e.target === lb) close();
+  });
+  closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close();
+  });
+})();
+
+/* ============================================================
+   v7: Фоновые видео (autoplay muted loop)
+   reduced-motion → не автоплеим; вне вьюпорта → пауза (перфоманс)
+   ============================================================ */
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var vids = document.querySelectorAll('video[autoplay][muted]');
+  if (!vids.length) return;
+
+  if (reduceMotion) {
+    vids.forEach(function (v) {
+      v.removeAttribute('autoplay');
+      v.pause();
+    });
+    return;
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) {
+          var pr = v.play();
+          if (pr && pr.catch) pr.catch(function () {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { rootMargin: '140px' });
+    vids.forEach(function (v) { io.observe(v); });
+  }
+})();
