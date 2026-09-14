@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ali-hub-01.github.io/asyl-dez/sitemap.xml
+Sitemap: https://asyl-dez.kz/sitemap.xml
