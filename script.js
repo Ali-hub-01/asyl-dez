@@ -13,10 +13,12 @@
      Хуки конверсий (Opus позже повесит сюда gtag)
      ---------------------------------------------------------- */
   function trackLeadSubmit(payload) {
-    /* gtag('event', 'generate_lead', {...payload}) — добавится позже */
+    if (window.asylConv) window.asylConv('form'); // Google Ads: отправка формы
   }
   function trackContactClick(type, href) {
-    /* gtag('event', 'contact_click', { type: type, link: href }) — добавится позже */
+    if (typeof window.asylConv !== 'function') return;
+    if (type === 'tel') window.asylConv('phone');          // Google Ads: клик по телефону
+    else if (type === 'whatsapp') window.asylConv('contact'); // Google Ads: клик WhatsApp
   }
   // делегированные клики по tel: / WhatsApp / Instagram
   document.addEventListener('click', function (e) {

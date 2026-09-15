@@ -3,6 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <!-- Google tag (gtag.js) - Google Ads AW-18450899581 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18450899581"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18450899581');
+
+    /* Конверсии Google Ads (анти-бот + дедуп за сессию). Вызовы висят в script.js:
+       клик тел -> phone, клик WhatsApp -> contact, отправка формы -> form. */
+    (function(){
+      var CONV = {
+        phone:   'AW-18450899581/gpTnCNeA3PccEP3Eid5E', // Click to call
+        form:    'AW-18450899581/2_fPCIzr1vccEP3Eid5E', // Submit lead form
+        contact: 'AW-18450899581/jsIJCNLy1vccEP3Eid5E'  // Contact (WhatsApp)
+      };
+      var human = false;
+      ['pointerdown','pointermove','touchstart','keydown','wheel'].forEach(function(ev){
+        window.addEventListener(ev, function(){ human = true; }, { once:true, passive:true });
+      });
+      function isBot(){ return !!navigator.webdriver || !human; }
+      window.asylConv = function(key){
+        var sendTo = CONV[key];
+        if(!sendTo || typeof gtag !== 'function' || isBot()) return;
+        try{ var k='asyl_conv_'+key; if(sessionStorage.getItem(k)) return; sessionStorage.setItem(k,'1'); }catch(e){}
+        gtag('event','conversion',{'send_to':sendTo,'value':1.0,'currency':'USD'});
+      };
+      window.gtag_report_conversion = function(url){
+        window.asylConv('phone');
+        if(typeof url !== 'undefined'){ setTimeout(function(){ window.location = url; }, 200); }
+        return false;
+      };
+    })();
+  </script>
+
   <title>Asyl Dez: санитарная служба. Дезинсекция, дератизация, дезинфекция | Алматы · Астана · Шымкент · Туркестан</title>
   <meta name="description" content="Asyl Dez: профессиональная санитарная служба с 2016 года. Дезинсекция, дератизация, дезинфекция, дезодорация и профилактика по гос. лицензии. Работаем 24/7 в Алматы, Астане, Шымкенте и Туркестане. Гарантия результата.">
   <link rel="canonical" href="https://asyl-dez.kz/">
@@ -26,7 +61,7 @@
 
   <link rel="preload" href="assets/fonts/adineuePROKZ-Black.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="assets/fonts/adineuePROKZ-Light.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=9">
+  <link rel="stylesheet" href="styles.css?v=10">
   <script>
     (function(){try{var l=localStorage.getItem('asyl-lang');if(l==='kz'){document.documentElement.lang='kk';document.documentElement.dataset.lang='kz';}}catch(e){}})();
   </script>
@@ -757,6 +792,6 @@
     <div class="lightbox-body" id="lightboxBody"></div>
   </div>
 
-  <script src="script.js?v=7" defer></script>
+  <script src="script.js?v=8" defer></script>
 </body>
 </html>
